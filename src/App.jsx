@@ -1,5 +1,5 @@
-import React from 'react'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import React from 'react';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Layout from './layout/Layout';
 import Dashboard from './pages/dashboard';
 import Orders from './pages/orders';
@@ -10,37 +10,38 @@ import Categories from './pages/categories';
 const App = () => {
   const router = createBrowserRouter([
     {
-      path: '/',
-      element: <Layout/>,
+      path: '/login', 
+      element: <LogInAdmin />, // Страница логина отдельно без Layout
+    },
+    {
+      path: '/', // Все остальные маршруты будут использовать Layout
+      element: <Layout />,
       children: [
         {
           index: true,
-          element: <Dashboard/>
+          element: <Dashboard />,
         },
         {
           path: 'orders',
-          element: <Orders/>,
-        },
-        {
-          path: 'login',
-          element: <LogInAdmin/>
+          element: <Orders />,
         },
         {
           path: 'product',
-          element: <Products/>
+          element: <Products />,
         },
         {
           path: 'categories',
-          element: <Categories/>
-        }
-      ]
-    }
-  ])
+          element: <Categories />,
+        },
+      ],
+    },
+  ]);
+
   return (
     <div>
-      <RouterProvider router={router}/>
+      <RouterProvider router={router} />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
