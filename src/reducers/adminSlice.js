@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { GetProduct } from '../api/api';
 
 const initialState = {
   data: []

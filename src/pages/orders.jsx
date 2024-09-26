@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navigation from "../components/navigation";
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { useSelector } from "react-redux";
+import { GetProduct } from "../api/api";
+
 
 const Orders = () => {
+
+  const { data } = useSelector((state) => state.AdminSlice)
+  console.log(data);
+  
+  useEffect(() => {
+    GetProduct()
+  }, [])
+
   return (
     <div className="w-[100%] flex">
       <Navigation />
@@ -54,13 +65,14 @@ const Orders = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
+            {data &&
+                data?.data?.products.map((element) => {
+                  return (
+                    <tr>
+                      <td>{element.productName}</td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </table>
         </div>
