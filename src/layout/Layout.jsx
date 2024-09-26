@@ -26,7 +26,7 @@ const Layout = () => {
               />
             </div>
           </div>
-          <div className="flex m-auto flex-wrap justify-center items-center gap-[20px]">
+          <div className="flex flex-wrap justify-center items-center gap-[20px]">
             <NotificationsNoneIcon sx={{ color: "white" }} />
             <div className="flex items-center gap-[10px]">
               <div className="w-[40px] h-[40px] rounded-[50%] bg-[#1FD286] text-[18px] font-[700] flex items-center justify-center text-white">
