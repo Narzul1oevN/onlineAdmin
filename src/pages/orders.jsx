@@ -1,17 +1,14 @@
 import React, { useEffect } from "react";
 import Navigation from "../components/navigation";
-import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useDispatch, useSelector } from "react-redux";
-import { GetProduct } from "../api/api";
-import { backdropClasses } from "@mui/material";
+import { getOrder } from "../api/api";
 
 const Orders = () => {
   const dispatch = useDispatch();
-  const { data } = useSelector((state) => state.AdminSlice);
+  const { order } = useSelector((state) => state.AdminSlice);
 
   useEffect(() => {
-    dispatch(GetProduct());
+    dispatch(getOrder());
   }, []);
 
   return (
@@ -65,12 +62,11 @@ const Orders = () => {
                 <th>Color</th>
                 <th>Quantity</th>
                 <th>Total</th>
-                <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {data &&
-                data?.data?.products.map((element) => {
+              {order &&
+                order?.order?.products.map((element) => {
                   return (
                     <tr className="border-[1px] border-[solid] border-[lightgray]" key={element.id}>
                       <td>
@@ -94,9 +90,6 @@ const Orders = () => {
                       </td>
                       <td className="text-[18px] font-[600]">{element.quantity}</td>
                       <td className="text-[18px] font-[600]">${element.price}.00</td>
-                      <td>
-                        <button className="w-[80px] h-[30px] text-center font-[600] border-[2px] rounded text-[red] border-[solid] border-[red] hover:bg-[red] hover:text-white">Delete</button>
-                      </td>
                     </tr>
                   );
                 })}
