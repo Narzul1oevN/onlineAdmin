@@ -50,7 +50,7 @@ class ApexChart extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='border-[1px] border-solid border-lightgray rounded-[10px]'>
         <ReactApexChart
           options={this.state.options}
           series={this.state.series}

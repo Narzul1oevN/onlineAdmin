@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const Navigation = () => {
   return (
-    <div className="w-[250px] flex flex-col gap-[10px] h-screen bg-[#1C2536] p-[20px]">
+    <div className="block sm:hidden md:hidden lg:hidden xl:hidden 2xl:block w-[250px]  flex-col gap-[10px] h-screen bg-[#1C2536] p-[20px]">
       <Link to={"/"}>
         <div className="w-[220px] h-[44px] hover:bg-white flex items-center gap-[10px] group p-[10px] rounded">
           <HomeIcon className="text-white group-hover:text-[#1C2536]" />
