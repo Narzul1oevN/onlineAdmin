@@ -10,7 +10,7 @@ const Dashboard = () => {
   return (
     <div className="w-[100%] flex flex-wrap">
       <Navigation />
-      <div className="p-[10px]">
+      <div className="p-[10px] flex flex-col gap-[20px]">
         <h1 className="text-[30px] font-[800]">Dashboard</h1>
         <div className="flex flex-wrap items-start gap-[20px]">
           <div className=" flex flex-col gap-[10px]">
@@ -107,6 +107,84 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div className='flex flex-wrap items-start justify-center gap-[20px]'>
+          <table className='w-[49%] h-[200px] rounded border-[1px] border-[solid] border-[lightgray] text-center'>
+            <thead>
+            <h1 className='text-[16px] font-[600] text-center'>Recent Transactions</h1>
+              <tr className='border-b-[1px] border-b-[solid] border-b-[lightgray]'>
+                <th className='text-[#5A607F] text-[14px]'>Name</th>
+                <th className='text-[#5A607F] text-[14px]'>Date</th>
+                <th className='text-[#5A607F] text-[14px]'>Amount</th>
+                <th className='text-[#5A607F] text-[14px]'>Status</th>
+              </tr>
+            </thead>
+            <tbody className='text-center'>
+              <tr>
+                <td className='text-[14px] font-[500  ]'>Jagarnath S.</td>
+                <td className='text-[14px]'>24.05.2023</td>
+                <td className='text-[14px]'>$124.97</td>
+                <td className='text-[14px] p-[10_20px] bg-[#C4F8E2] text-[#06A561]'>Paid</td>
+              </tr>
+              <tr>
+                <td className='text-[14px] font-[500  ]'>Jagarnath S.</td>
+                <td className='text-[14px]'>24.05.2023</td>
+                <td className='text-[14px]'>$124.97</td>
+                <td className='text-[14px] p-[10_20px] bg-[#C4F8E2] text-[#06A561]'>Paid</td>
+              </tr>
+              <tr>
+                <td className='text-[14px] font-[500  ]'>Jagarnath S.</td>
+                <td className='text-[14px]'>24.05.2023</td>
+                <td className='text-[14px]'>$124.97</td>
+                <td className='text-[14px] p-[10_20px] bg-[#C4F8E2] text-[#06A561]'>Paid</td>
+              </tr>
+              <tr>
+                <td className='text-[14px] font-[500  ]'>Jagarnath S.</td>
+                <td className='text-[14px]'>24.05.2023</td>
+                <td className='text-[14px]'>$124.97</td>
+                <td className='text-[14px] p-[10_20px] bg-[#C4F8E2] text-[#06A561]'>Paid</td>
+              </tr>
+
+            </tbody>
+          </table>
+          <table className='w-[49%] h-[200px] rounded border-[1px] border-[solid] border-[lightgray] text-center'>
+            <thead>
+            <h1 className='text-[16px] font-[600] text-center'>Recent Transactions</h1>
+              <tr className='border-b-[1px] border-b-[solid] border-b-[lightgray]'>
+                <th className='text-[#5A607F] text-[14px]'>Name</th>
+                <th className='text-[#5A607F] text-[14px]'>Date</th>
+                <th className='text-[#5A607F] text-[14px]'>Amount</th>
+                <th className='text-[#5A607F] text-[14px]'>Status</th>
+              </tr>
+            </thead>
+            <tbody className='text-center'>
+              <tr>
+                <td className='text-[14px] font-[500  ]'>Jagarnath S.</td>
+                <td className='text-[14px]'>24.05.2023</td>
+                <td className='text-[14px]'>$124.97</td>
+                <td className='text-[14px] p-[10_20px] bg-[#C4F8E2] text-[#06A561]'>Paid</td>
+              </tr>
+              <tr>
+                <td className='text-[14px] font-[500  ]'>Jagarnath S.</td>
+                <td className='text-[14px]'>24.05.2023</td>
+                <td className='text-[14px]'>$124.97</td>
+                <td className='text-[14px] p-[10_20px] bg-[#C4F8E2] text-[#06A561]'>Paid</td>
+              </tr>
+              <tr>
+                <td className='text-[14px] font-[500  ]'>Jagarnath S.</td>
+                <td className='text-[14px]'>24.05.2023</td>
+                <td className='text-[14px]'>$124.97</td>
+                <td className='text-[14px] p-[10_20px] bg-[#C4F8E2] text-[#06A561]'>Paid</td>
+              </tr>
+              <tr>
+                <td className='text-[14px] font-[500  ]'>Jagarnath S.</td>
+                <td className='text-[14px]'>24.05.2023</td>
+                <td className='text-[14px]'>$124.97</td>
+                <td className='text-[14px] p-[10_20px] bg-[#C4F8E2] text-[#06A561]'>Paid</td>
+              </tr>
+
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
