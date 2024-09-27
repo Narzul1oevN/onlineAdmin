@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosRequest } from "../utils/axiosRequest";
-import toast from "react-hot-toast";
 
 
 export const GetProduct = createAsyncThunk("counter/GetProduct", async () => {

@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import Navigation from "../components/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrder } from "../api/api";
+import { GetProduct, getOrder } from "../api/api";
 
 const Orders = () => {
   const dispatch = useDispatch();
-  const { order } = useSelector((state) => state.AdminSlice);
+  const { data } = useSelector((state) => state.AdminSlice);
 
   useEffect(() => {
-    dispatch(getOrder());
+    dispatch(GetProduct());
   }, []);
 
   return (
@@ -16,39 +16,6 @@ const Orders = () => {
       <Navigation />
       <div className="w-[100%] flex flex-col gap-[20px] p-[10px]">
           <h1 className="text-[24px] text-[#111927] font-[700]">Orders</h1>
-        {/* <div className="w-[100%] flex  justify-between">
-          <button className="w-[118px] h-[40px] bg-blue-500 text-white font-[700] rounded">
-            + Add order
-          </button>
-        </div>
-        <div className="w-[100%] flex flex-wrap justify-between items-center">
-          <div className="flex items-center gap-[20px]">
-            <input
-              type="search"
-              placeholder="Search..."
-              className="pl-[20px] pr-[20px] text-[18px] w-[280px] placeholder:text-[18px] h-[58px] outline-none border-[1px] border-solid border-[lightgray] rounded"
-              name=""
-              id=""
-            />
-            <select
-              className="pl-[20px] pr-[20px] w-[150px] h-[56px] text-[18px] outline-none border-[1px] border-solid border-[lightgray] rounded "
-              name=""
-              id=""
-            >
-              <option value="">Ready</option>
-              <option value="">Shipped</option>
-              <option value="">Received</option>
-            </select>
-          </div>
-          <div className="flex items-start gap-[20px]">
-            <button className="hover:bg-blue-500 hover:text-white w-[50px] h-[50px] bg-transparent border-[1px] border-solid rounded border-blue-300 text-blue-500">
-              <DriveFileRenameOutlineIcon />
-            </button>
-            <button className="hover:bg-blue-500 hover:text-white w-[50px] h-[50px] bg-transparent border-[1px] border-solid rounded border-blue-300 text-blue-500">
-              <DeleteOutlineIcon />
-            </button>
-          </div>
-        </div> */}
 
         {/* tableGet */}
         <div>
@@ -65,8 +32,8 @@ const Orders = () => {
               </tr>
             </thead>
             <tbody>
-              {order &&
-                order?.order?.products.map((element) => {
+              {data &&
+                data?.data?.products.map((element) => {
                   return (
                     <tr className="border-[1px] border-[solid] border-[lightgray]" key={element.id}>
                       <td>

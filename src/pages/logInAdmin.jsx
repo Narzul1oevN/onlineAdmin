@@ -4,6 +4,7 @@ import logo from "../assets/Group 4444.png";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../api/api";
+import toast from "react-hot-toast";
 
 const LogInAdmin = () => {
   const navigate = useNavigate();
@@ -19,8 +20,9 @@ const LogInAdmin = () => {
     const resultAction = await dispatch(login(obj));
     if (login.fulfilled.match(resultAction)) {
       navigate("/");
-    } else {
-      navigate("/signUp");
+    } 
+    else {
+      toast.error("The account does not exist.")
     }
   }
 
