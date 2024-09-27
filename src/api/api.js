@@ -43,3 +43,13 @@ export const GetByCategory = createAsyncThunk("counter/GetByCategory", async () 
     console.error(error);
   }
 })
+
+export const DeleteProductById = createAsyncThunk("counter/DeleteProductById", async (id, {dispatch}) => {
+  try {
+    const { data } = await axiosRequest.delete(`/Product/delete-product?id=${id}`)
+    dispatch(GetProduct())
+    return data
+  } catch (error) {
+    console.error(error);
+  }
+})

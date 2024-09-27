@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { GetByCategory, GetProduct, getOrder, login } from '../api/api';
+import { DeleteProductById, GetByCategory, GetProduct, getOrder, login } from '../api/api';
 import toast from 'react-hot-toast';
 
 const initialState = {

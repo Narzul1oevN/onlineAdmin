@@ -3,7 +3,7 @@ import Navigation from "../components/navigation";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useDispatch, useSelector } from "react-redux";
-import { GetProduct } from "../api/api";
+import { DeleteProductById, GetProduct } from "../api/api";
 import nullData from "../assets/illustration.png";
 import { useNavigate } from "react-router-dom";
 
@@ -11,10 +11,10 @@ const Product = () => {
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.AdminSlice);
   const token = localStorage.getItem("token");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   function handleLog() {
-    navigate('/login')
+    navigate("/login");
   }
 
   useEffect(() => {
@@ -76,6 +76,7 @@ const Product = () => {
                   <th>Color</th>
                   <th>Quantity</th>
                   <th>Total</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -115,6 +116,14 @@ const Product = () => {
                       <td className="text-[18px] font-[600]">
                         ${element.price}.00
                       </td>
+                      <td className="flex justify-center items-center gap-[10px]">
+                        <button className="hover:bg-blue-500 hover:text-white w-[40px] h-[40px] bg-transparent border-[1px] border-solid rounded border-blue-300 text-blue-500">
+                          <DriveFileRenameOutlineIcon />
+                        </button>
+                        <button onClick={() => dispatch(DeleteProductById(element.id))} className="hover:bg-red-500 hover:text-white w-[40px] h-[40px] bg-transparent border-[1px] border-solid rounded border-red-300 text-red-500">
+                          <DeleteOutlineIcon />
+                        </button>
+                      </td>
                     </tr>
                   ))}
               </tbody>
@@ -128,8 +137,18 @@ const Product = () => {
               alt="Image when no token"
             />
             <h1 className="text-[20px] font-[800]">No Orders Yet</h1>
-            <p className="text-[16px] text-[#5A607F] text-center">All the upcoming orders from your store will be visible in this page. <br /> You can add orders by yourself if you sell offline. </p>
-            <button onClick={() => {handleLog()}} className="w-[140px] h-[40px] bg-blue-500 text-white text-[16px] rounded hover:bg-blue-400">Log in</button>
+            <p className="text-[16px] text-[#5A607F] text-center">
+              All the upcoming orders from your store will be visible in this
+              page. <br /> You can add orders by yourself if you sell offline.{" "}
+            </p>
+            <button
+              onClick={() => {
+                handleLog();
+              }}
+              className="w-[140px] h-[40px] bg-blue-500 text-white text-[16px] rounded hover:bg-blue-400"
+            >
+              Log in
+            </button>
           </div>
         )}
       </div>
