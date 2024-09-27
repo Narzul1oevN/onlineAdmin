@@ -33,3 +33,13 @@ export const login = createAsyncThunk("auth/login", async (credentials, { reject
     return rejectWithValue(error.response.data);
   }
 });
+
+export const GetByCategory = createAsyncThunk("counter/GetByCategory", async () => {
+  try {
+    const { data } = await axiosRequest.get("/Category/get-categories")
+    console.log(data.data);
+    return data.data
+  } catch (error) {
+    console.error(error);
+  }
+})

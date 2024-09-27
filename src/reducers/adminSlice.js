@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { GetProduct, getOrder, login } from '../api/api';
+import { GetByCategory, GetProduct, getOrder, login } from '../api/api';
 import toast from 'react-hot-toast';
 
 const initialState = {
   data: [],
   order: [],
+  categore: [],
   token: null
 };
 
@@ -38,6 +39,9 @@ export const AdminSlice = createSlice({
     })
     builder.addCase(getOrder.fulfilled, (state, action) => {
       state.order = action.payload;
+    })
+    builder.addCase(GetByCategory.fulfilled, (state, action) => {
+      state.categore = action.payload;
     })
   },
 });

@@ -14,7 +14,6 @@ const Layout = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
   const user = getToken();
-  console.log("user", user);
 
   useEffect(() => {}, [user]);
 
