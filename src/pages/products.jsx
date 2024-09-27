@@ -4,11 +4,18 @@ import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutli
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useDispatch, useSelector } from "react-redux";
 import { GetProduct } from "../api/api";
-import { backdropClasses } from "@mui/material";
+import nullData from "../assets/illustration.png";
+import { useNavigate } from "react-router-dom";
 
 const Product = () => {
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.AdminSlice);
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate()
+
+  function handleLog() {
+    navigate('/login')
+  }
 
   useEffect(() => {
     dispatch(GetProduct());
@@ -54,28 +61,26 @@ const Product = () => {
         </div>
 
         {/* tableGet */}
-        <div>
-          <table className="border-[1px] border-[solid] border-[lightgray] w-[80%] text-center m-auto">
-            <thead className="h-[20px]">
-              <tr>
-                <th>
-                  <input
-                    className="w-[15px] h-[15px] accent-blue-500"
-                    type="checkbox"
-                    name=""
-                    id=""
-                  />
-                </th>
-                <th className="text-start">Product</th>
-                <th>Color</th>
-                <th>Quantity</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data &&
-                data?.data?.products.map((element) => {
-                  return (
+        {token ? (
+          <div>
+            <table className="border-[1px] border-[solid] border-[lightgray] w-[80%] text-center m-auto">
+              <thead className="h-[50px]">
+                <tr>
+                  <th>
+                    <input
+                      className="w-[15px] h-[15px] accent-blue-500"
+                      type="checkbox"
+                    />
+                  </th>
+                  <th className="text-start">Product</th>
+                  <th>Color</th>
+                  <th>Quantity</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data &&
+                  data?.data?.products?.map((element) => (
                     <tr
                       className="border-[1px] border-[solid] border-[lightgray]"
                       key={element.id}
@@ -84,16 +89,14 @@ const Product = () => {
                         <input
                           className="w-[15px] h-[15px] accent-blue-500"
                           type="checkbox"
-                          name=""
-                          id=""
                         />
                       </td>
                       <td className="flex items-center gap-[10px]">
                         <img
                           className="w-[50px] object-cover object-center"
-                          src={
-                            import.meta.env.VITE_APP_FILE_URL + element.image
-                          }
+                          src={`${import.meta.env.VITE_APP_FILE_URL}${
+                            element.image
+                          }`}
                           alt=""
                         />
                         <h1 className="text-[18px] font-[600]">
@@ -102,7 +105,7 @@ const Product = () => {
                       </td>
                       <td>
                         <div
-                          className=" w-[50px] h-[50px] rounded-[50%]"
+                          className="w-[50px] h-[50px] rounded-[50%]"
                           style={{ backgroundColor: element.color }}
                         ></div>
                       </td>
@@ -113,11 +116,22 @@ const Product = () => {
                         ${element.price}.00
                       </td>
                     </tr>
-                  );
-                })}
-            </tbody>
-          </table>
-        </div>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="m-auto flex flex-col gap-[10px] items-center justify-center">
+            <img
+              className=" w-[104px] h-[108px]"
+              src={nullData}
+              alt="Image when no token"
+            />
+            <h1 className="text-[20px] font-[800]">No Orders Yet</h1>
+            <p className="text-[16px] text-[#5A607F] text-center">All the upcoming orders from your store will be visible in this page. <br /> You can add orders by yourself if you sell offline. </p>
+            <button onClick={() => {handleLog()}} className="w-[140px] h-[40px] bg-blue-500 text-white text-[16px] rounded hover:bg-blue-400">Log in</button>
+          </div>
+        )}
       </div>
     </div>
   );

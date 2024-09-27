@@ -11,10 +11,10 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: '/login', 
-      element: <LogInAdmin />, // Страница логина отдельно без Layout
+      element: <LogInAdmin />,
     },
     {
-      path: '/', // Все остальные маршруты будут использовать Layout
+      path: '/',
       element: <Layout />,
       children: [
         {

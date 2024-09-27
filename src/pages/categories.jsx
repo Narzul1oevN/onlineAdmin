@@ -6,7 +6,7 @@ const Categories = () => {
     <div className='w-[100%] flex'> 
       <Navigation/>
       <div className='p-[10px]'>
-        <h1>Hello Category</h1>
+        
       </div>
     </div>
   )
