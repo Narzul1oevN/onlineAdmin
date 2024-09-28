@@ -48,7 +48,10 @@ const AddPage = () => {
     } else {
       toast.error("Error in add!");
     }
+    
   }
+
+  
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];

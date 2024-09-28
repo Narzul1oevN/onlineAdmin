@@ -106,14 +106,14 @@ const Product = () => {
                       </td>
                       <td className="flex items-center gap-[10px]">
                         <img
-                          className="w-[50px] object-cover object-center"
+                          className="w-[50px] h-[50px] object-cover object-center"
                           src={`${import.meta.env.VITE_APP_FILE_URL}${
                             element?.image
                           }`}
                           alt=""
                         />
                         <h1 className="text-[18px] font-[600]">
-                          {element?.productName}
+                          {element.productName}
                         </h1>
                       </td>
                       <td>

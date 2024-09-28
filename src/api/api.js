@@ -52,23 +52,33 @@ export const login = createAsyncThunk("auth/login", async (credentials, { reject
   }
 });
 
-export const addProduct = createAsyncThunk("counter/addProduct", async (productObj) => {
-  const navigate = useNavigate()
+export const addProduct = createAsyncThunk("counter/addProduct", async (productObj, { dispatch }) => {
   try {
-    const { data } = await axiosRequest.post(`/Product/add-product`, productObj ,
-    {
-      'Content-Type':'multipart/form-data'
-    })
+    const { data } = await axiosRequest.post(`/Product/add-product`, productObj, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+
+
+    if (data.statusCode === 200) {
+      toast.success("Product added successfully");
+    } else {
+      toast.error("Error in add!");
+    }
+
+    dispatch(GetProduct());
   } catch (error) {
-    console.error(error);
+    console.error("Error adding product:", error.response ? error.response.data : error.message);
+    toast.error("An error occurred while adding the product.");
   }
-})
+});
+
 
 
 export const GetByCategory = createAsyncThunk("counter/GetByCategory", async () => {
   try {
     const { data } = await axiosRequest.get("/Category/get-categories")
-    console.log(data.data);
     return data.data
   } catch (error) {
     console.error(error);
@@ -112,11 +122,30 @@ export const GetCategory = createAsyncThunk("counter/GetCategory", async () => {
   }
 })
 
-export const searchByName = createAsyncThunk("counter/searchByName", async (search, {dispatch}) => {
+export const searchByName = createAsyncThunk("counter/searchByName", async (search) => {
   try {
-    const { data } = await axiosRequest.get(`/Product/get-products?ProductName=${search}`)
+    const { data } = await axiosRequest.get(`/Product/get-products?ProductName=${search?search:""}`)
     return data
   } catch (error) {
     console.error(error);
+  }
+})
+
+
+//  post category 
+
+export const postCategroy = createAsyncThunk('counter/postCategroy',async(brand, {dispatch})=>{
+  const form = new FormData()
+  form.append('CategoryImage', brand.categoryFile)
+  form.append('CategoryName', brand.CategoryName )
+  console.log(brand);
+  
+  try {
+      const {data} = await axiosRequest.post(`/Category/add-category`, form)
+      dispatch(GetCategory())
+      return data
+  } catch (error) {
+      console.error(error);
+      
   }
 })
