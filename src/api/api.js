@@ -131,18 +131,13 @@ export const searchByName = createAsyncThunk("counter/searchByName", async (sear
   }
 })
 
-
-//  post category 
-
-export const postCategroy = createAsyncThunk('counter/postCategroy',async(brand, {dispatch})=>{
+export const postCategroy = createAsyncThunk('counter/postCategroy',async(brand, {dispatch}) => {
   const form = new FormData()
   form.append('CategoryImage', brand.categoryFile)
   form.append('CategoryName', brand.CategoryName )
-  console.log(brand);
-  
-  try {
+try {
       const {data} = await axiosRequest.post(`/Category/add-category`, form)
-      dispatch(GetCategory())
+      dispatch(GetByCategory())
       return data
   } catch (error) {
       console.error(error);
