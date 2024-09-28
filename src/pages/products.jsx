@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Navigation from "../components/navigation";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useDispatch, useSelector } from "react-redux";
-import { DeleteProductById, GetProduct } from "../api/api";
+import { DeleteProductById, GetProduct, searchByName } from "../api/api";
 import nullData from "../assets/illustration.png";
 import { useNavigate } from "react-router-dom";
 
@@ -12,6 +12,7 @@ const Product = () => {
   const { data } = useSelector((state) => state.AdminSlice);
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
+  const [search, setSearch] = useState("");
 
   function handleLog() {
     navigate("/login");
@@ -19,6 +20,7 @@ const Product = () => {
 
   useEffect(() => {
     dispatch(GetProduct());
+    dispatch(searchByName())
   }, []);
 
   return (
@@ -27,13 +29,23 @@ const Product = () => {
       <div className="w-[100%] flex flex-col gap-[20px] p-[10px]">
         <div className="w-[100%] flex  justify-between">
           <h1 className="text-[24px] text-[#111927] font-[700]">Product</h1>
-          <button className="w-[118px] h-[40px] bg-blue-500 text-white font-[700] rounded">
+          <button
+            onClick={() => {
+              navigate("/addPage");
+            }}
+            className="w-[118px] h-[40px] bg-blue-500 text-white font-[700] rounded"
+          >
             + Add order
           </button>
         </div>
         <div className="w-[100%] flex flex-wrap justify-between items-center">
           <div className="flex items-center gap-[20px]">
             <input
+              value={search}
+              onChange={(e) => {
+                dispatch(searchByName(e.target.value)),
+                  setSearch(e.target.value);
+              }}
               type="search"
               placeholder="Search..."
               className="pl-[20px] pr-[20px] text-[18px] w-[280px] placeholder:text-[18px] h-[40px] outline-none border-[1px] border-solid border-[lightgray] rounded"
@@ -96,12 +108,12 @@ const Product = () => {
                         <img
                           className="w-[50px] object-cover object-center"
                           src={`${import.meta.env.VITE_APP_FILE_URL}${
-                            element.image
+                            element?.image
                           }`}
                           alt=""
                         />
                         <h1 className="text-[18px] font-[600]">
-                          {element.productName}
+                          {element?.productName}
                         </h1>
                       </td>
                       <td>
@@ -111,16 +123,21 @@ const Product = () => {
                         ></div>
                       </td>
                       <td className="text-[18px] font-[600]">
-                        {element.quantity}
+                        {element?.quantity}
                       </td>
                       <td className="text-[18px] font-[600]">
-                        ${element.price}.00
+                        ${element?.price}.00
                       </td>
                       <td className="flex justify-center items-center gap-[10px]">
                         <button className="hover:bg-blue-500 hover:text-white w-[40px] h-[40px] bg-transparent border-[1px] border-solid rounded border-blue-300 text-blue-500">
                           <DriveFileRenameOutlineIcon />
                         </button>
-                        <button onClick={() => dispatch(DeleteProductById(element.id))} className="hover:bg-red-500 hover:text-white w-[40px] h-[40px] bg-transparent border-[1px] border-solid rounded border-red-300 text-red-500">
+                        <button
+                          onClick={() =>
+                            dispatch(DeleteProductById(element.id))
+                          }
+                          className="hover:bg-red-500 hover:text-white w-[40px] h-[40px] bg-transparent border-[1px] border-solid rounded border-red-300 text-red-500"
+                        >
                           <DeleteOutlineIcon />
                         </button>
                       </td>

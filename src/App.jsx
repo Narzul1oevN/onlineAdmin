@@ -6,6 +6,7 @@ import Orders from './pages/orders';
 import LogInAdmin from './pages/logInAdmin';
 import Products from './pages/products';
 import Categories from './pages/categories';
+import AddPage from './pages/addPage';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -32,6 +33,10 @@ const App = () => {
         {
           path: 'categories',
           element: <Categories />,
+        },
+        {
+          path: 'addPage',
+          element: <AddPage/>
         },
       ],
     },

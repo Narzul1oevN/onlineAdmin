@@ -1,12 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { DeleteProductById, GetByCategory, GetProduct, getOrder, login } from '../api/api';
+import { DeleteProductById, GetBrand, GetByCategory, GetCategory, GetColor, GetProduct, addProduct, getOrder, login, searchByName } from '../api/api';
 import toast from 'react-hot-toast';
 
 const initialState = {
   data: [],
   order: [],
   categore: [],
-  token: null
+  token: null,
+  color: [],
+  brand: [],
+  subcategory: []
 };
 
 export const AdminSlice = createSlice({
@@ -34,6 +37,9 @@ export const AdminSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
+    builder.addCase(addProduct.fulfilled, (state, action) => {
+      state.data.push(action.payload);
+    })
     builder.addCase(GetProduct.fulfilled, (state, action) => {
       state.data = action.payload;
     })
@@ -42,6 +48,18 @@ export const AdminSlice = createSlice({
     })
     builder.addCase(GetByCategory.fulfilled, (state, action) => {
       state.categore = action.payload;
+    })
+    builder.addCase(GetColor.fulfilled, (state, action) => {
+      state.color = action.payload;
+    })
+    builder.addCase(GetBrand.fulfilled, (state, action) => {
+      state.brand = action.payload;
+    })
+    builder.addCase(GetCategory.fulfilled, (state, action) => {
+      state.subcategory = action.payload;
+    })
+    builder.addCase(searchByName.fulfilled, (state, action) => {
+      state.data = action.payload;
     })
   },
 });

@@ -1,10 +1,22 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import Navigation from "../components/navigation";
 import nullData from "../assets/illustration.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { GetByCategory } from "../api/api";
-import { Link } from "react-router-dom";
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Slide from '@mui/material/Slide';
+import { TextField } from "@mui/material";
+import ImageTypeFile from "../components/imageTypeFile";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const Categories = () => {
   const token = localStorage.getItem("token");
@@ -21,17 +33,31 @@ const Categories = () => {
     dispatch(GetByCategory());
   }, []);
 
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  function categoryAdd() {
+    
+  }
+
   return (
     <div className="w-[100%] flex">
       <Navigation />
       <div className="w-[100%] flex flex-col gap-[20px] p-[10px]">
         <div className="w-[100%] flex items-center justify-between">
           <div className="flex items-center gap-[20px]">
-            <p onClick={() => FilterByCategory()} className="text-[18px] font-[600] pl-[20px] pr-[20px] pt-[10px] pb-[10px] rounded-[10px] hover:cursor-pointer hover:bg-blue-300">Categories</p>
-            <p onClick={() => FilterByCategory()} className="text-[18px] font-[600] pl-[20px] pr-[20px] pt-[10px] pb-[10px] rounded-[10px] hover:cursor-pointer hover:bg-blue-300">Brands</p>
-            <p onClick={() => FilterByCategory()} className="text-[18px] font-[600] pl-[20px] pr-[20px] pt-[10px] pb-[10px] rounded-[10px] hover:cursor-pointer hover:bg-blue-300">Banners</p>
+            <p onClick={() => FilterByCategory()} className="text-[18px] text-blue-500 font-[600] pl-[20px] pr-[20px] pt-[10px] pb-[10px] rounded-[5px] hover:cursor-pointer hover:bg-blue-100">Categories</p>
+            <p onClick={() => FilterByCategory()} className="text-[18px] text-blue-500 font-[600] pl-[20px] pr-[20px] pt-[10px] pb-[10px] rounded-[5px] hover:cursor-pointer hover:bg-blue-100">Brands</p>
+            <p onClick={() => FilterByCategory()} className="text-[18px] text-blue-500 font-[600] pl-[20px] pr-[20px] pt-[10px] pb-[10px] rounded-[5px] hover:cursor-pointer hover:bg-blue-100">Banners</p>
           </div>
-          <button className="w-[111px] h-[40px] bg-blue-500 rounded text-[white] font-[700]">+ Add new</button>
+          <button className="w-[111px] h-[40px] bg-blue-500 rounded text-[white] font-[700] " onClick={handleClickOpen}>+ Add new</button>
         </div>
         <h1 className="text-[24px] text-[#111927] font-[700]">Category</h1>
 
@@ -77,6 +103,25 @@ const Categories = () => {
           </div>
         )}
       </div>
+      <React.Fragment>
+      <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>{"Add category!"}</DialogTitle>
+        <DialogContent className=" flex flex-col gap-[20px]">
+              <TextField id="outlined-basic" label="Create category" size="small" sx={{width:"300px"}} variant="outlined" />
+              <ImageTypeFile/>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={categoryAdd()}>Agree</Button>
+        </DialogActions>
+      </Dialog>
+    </React.Fragment>
     </div>
   );
 };
