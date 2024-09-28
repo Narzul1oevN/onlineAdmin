@@ -59,13 +59,6 @@ export const addProduct = createAsyncThunk("counter/addProduct", async (productO
     {
       'Content-Type':'multipart/form-data'
     })
-    if (data.statusCode === 200) {
-      toast.success("Successfuly Add")
-      navigate("/product")
-    }
-    else {
-      toast.error("Error in Add")
-    }
   } catch (error) {
     console.error(error);
   }
