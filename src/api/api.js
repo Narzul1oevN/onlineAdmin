@@ -107,7 +107,7 @@ export const GetColor = createAsyncThunk("counter/GetColor", async () => {
 export const GetBrand = createAsyncThunk("counter/GetBrand", async () => {
   try {
     const { data } = await axiosRequest.get("/Brand/get-brands")
-    return data
+    return data.data
   } catch (error) {
     console.error(error);
   }
@@ -159,6 +159,16 @@ export const editProduct = createAsyncThunk('counter/postCategroy', async (param
     console.log(params)
     const { data } = await axiosRequest.put(`/Product/update-product?Id=${params.id}&BrandId=${params.brandId}&ColorId=${params.colorId}&ProductName=${params.editProductName}&Description=${params.editDiscription}&Quantity=${params.editProductQuantity}&Code=${params.editProductCode}&Price=${params.editProductPrice}&HasDiscount=false&SubCategoryId=${params.subcategoryId}`)
     dispatch(GetProduct())
+    return data
+  } catch (error) {
+    console.error(error);
+  }
+})
+
+export const deleteCategory = createAsyncThunk('counter/deleteCategory', async (id,{dispatch}) => {
+  try {
+    const { data } = await axiosRequest.delete(`/Category/delete-category?id=${id}`)
+    dispatch(GetByCategory())
     return data
   } catch (error) {
     console.error(error);

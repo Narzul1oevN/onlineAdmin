@@ -35,7 +35,7 @@ const Layout = () => {
 
   return (
     <div>
-      <div className="w-[100%] sticky top-0 pt-[10px] pb-[10px] justify-center bg-[#1C2536] flex items-center">
+      <div className="w-[100%] sticky z-50 top-0 pt-[10px] pb-[10px] justify-center bg-[#1C2536] flex items-center">
         <div className="w-[95%] m-auto flex flex-wrap items-center gap-[30px] justify-between">
           <div className="flex flex-wrap justify-center items-center gap-[20px]">
             <img

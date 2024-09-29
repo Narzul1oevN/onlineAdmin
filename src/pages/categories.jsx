@@ -3,19 +3,15 @@ import Navigation from "../components/navigation";
 import nullData from "../assets/illustration.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { GetByCategory, postCategroy } from "../api/api";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-
-import DialogTitle from "@mui/material/DialogTitle";
+import { GetBrand, GetByCategory, deleteCategory, postCategroy } from "../api/api";
 import Slide from "@mui/material/Slide";
-import { TextField } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 import styled from "styled-components";
 import FileBase64 from "react-file-base64";
-import { handleaddBrand } from "../reducers/adminSlice";
-import { editBrandPr } from "../api/apibrand";
+import { handleaddBrand, setEditBrand, setEditBrandDId } from "../reducers/adminSlice";
+import { PostBrand, deleteBrand, editBrandPr } from "../api/apibrand";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -24,34 +20,36 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const Categories = () => {
   const token = localStorage.getItem("token");
   const { categore } = useSelector((state) => state.AdminSlice);
-  const { brand } = useSelector((state) => state.AdminSlice);
+  const { brandse } = useSelector((state) => state.AdminSlice);
   const { addBrand } = useSelector((state) => state.AdminSlice);
-  const { editBrand } = useSelector((state) => state.AdminSlice);
-  const { editId } = useSelector((state) => state.AdminSlice);
+  const [editId, setEditId] = useState(null);
+const [editBrand, setEditBrand] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [openBrands, setOpenBrands] = useState(false);
-
   function handleLog() {
     navigate("/login");
   }
 
+
+
+
   useEffect(() => {
     dispatch(GetByCategory());
+    dispatch(GetBrand())
   }, []);
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handlesavebrand = () => {
-    let brand = {
+    let err = {
       brandName: addBrand,
     };
-    console.log(brand);
-    dispatch(PostBrand(brand));
+    dispatch(PostBrand(err));
     handleaddBrand(" ");
   };
 
@@ -68,7 +66,6 @@ const Categories = () => {
   );
   const [CategoryName, setCategoryName] = useState("");
   const [categoryFile, setCategoryFile] = useState("");
-  console.log(CategoryName);
   const handleShowImage = (e) => {
     setCategoryImage(e.base64);
     setCategoryFile(e.file);
@@ -91,20 +88,28 @@ const Categories = () => {
   };
 
   const saveEditBrand = () => {
-    let updateBrand = {
+    const updateBrand = {
       id: editId,
       brandName: editBrand,
     };
-    dispatch(editBrandPr(updateBrand));
+    dispatch(editBrandPr(updateBrand)); // Проверьте правильность этой функции
     setOpenBrands(false);
   };
+  
+
+  const handleEditBrand = (brandElem) => {
+    setOpenBrands(true);
+    setEditBrand(brandElem.brandName);
+    setEditId(brandElem.id); // Исправлено
+  };
+  
 
 
   return (
     <div className="w-[100%] flex">
       <Navigation />
 
-      <div className="w-[100%] flex flex-col gap-[20px] p-[10px]">
+      <div className="w-[100%] flex flex-col gap-[20px] p-[10px] ">
         <div>
           <Button
             variant={`${categories ? "contained" : "text"}`}
@@ -150,18 +155,43 @@ const Categories = () => {
                     return (
                       <div
                         key={element.id}
-                        className="group hover:bg-[#1C2536] border-[2px] border-[#91919170] w-[170px] h-[145px] flex flex-col justify-evenly items-center"
+                        className="group hover:bg-[#1C2536] hover:text-white border-[2px] border-[#91919170] w-[170px] h-[170px] flex flex-col justify-evenly items-center"
                       >
                         <img
                           className="w-[80px]  rounded"
-                          src={
-                            import.meta.env.VITE_APP_FILE_URL +
-                            element?.categoryImage
-                          }
+                          src={import.meta.env.VITE_APP_FILE_URL + element?.categoryImage}
                         />
-                        <h1 className="text-[16px] text-center font-[100] group-hover:text-white">
-                          {element?.categoryName}
+                        <h1 className="text-[18px] text-center font-[600] group-hover:text-white">
+                          {element?.categoryName.slice(0, 12)}
                         </h1>
+                        <div className="w-[100] flex items-center gap-[20px] justify-center">
+                          <button>
+                          <EditIcon
+                            fontSize="medium"
+                            sx={{
+                              color: "#1E5EFF",
+                              marginRight: "10px",
+                              ":hover": {
+                                border: "1px solid #1E5EFF",
+                                borderRadius: "4px",
+                              },
+                            }}
+                          />
+                          </button>
+                          <button onClick={() => dispatch(deleteCategory(element.id))}>
+                          <DeleteIcon
+                            fontSize="medium"
+                            sx={{
+                              color: "#F04438",
+                              marginRight: "0px",
+                              ":hover": {
+                                border: "1px solid #F04438",
+                                borderRadius: "4px",
+                              },
+                            }}
+                          />
+                          </button>
+                        </div>
                       </div>
                     );
                   }
@@ -235,7 +265,7 @@ const Categories = () => {
         </div>
         }
         {Brands && (
-        <div className="flex justify-between">
+        <div className=" p-[10px] flex justify-between">
           <table className="w-[40%]">
             <thead>
               <tr className="border-b-2 text-left">
@@ -244,7 +274,7 @@ const Categories = () => {
               </tr>
             </thead>
             <tbody>
-              {brand.map((elem) => {
+              {Array.isArray(brandse) && brandse.map((elem) => {
                 return (
                   <tr key={elem.id} className="border-b-2 h-[50px]">
                     <td>{elem.brandName}</td>
@@ -259,7 +289,7 @@ const Categories = () => {
                               marginRight: "10px",
                               ":hover": {
                                 border: "1px solid #1E5EFF",
-                                borderRadius: "4px", // Optional: Add some border-radius for a smoother look
+                                borderRadius: "4px",
                               },
                             }}
                           />
@@ -310,11 +340,12 @@ const Categories = () => {
             </div>
           </div>
 
-          <Dialog open={open} onClose={CloseBrand}>
+
+          <Dialog open = { openBrands } onClose = {CloseBrand}>
             <DialogTitle>Edit name brand</DialogTitle>
             <div className="p-10 w-[350px]">
               <TextField
-                value={editBrandPr}
+                value={editBrand}
                 onChange={(e) => dispatch(setEditBrand(e.target.value))}
                 id="outlined-basic"
                 label="Brand Name"
