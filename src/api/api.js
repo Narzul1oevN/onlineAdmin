@@ -144,3 +144,23 @@ try {
       
   }
 })
+
+export const GetById = createAsyncThunk("counter/GetById", async (id) => {
+  try {
+    const { data } = await axiosRequest.get(`/Product/get-product-by-id?id=${id}`)
+    return data.data
+  } catch (error) {
+    console.error(error);
+  }
+})
+
+export const editProduct = createAsyncThunk('counter/postCategroy', async (params, {dispatch}) => {
+  try {
+    console.log(params)
+    const { data } = await axiosRequest.put(`/Product/update-product?Id=${params.id}&BrandId=${params.brandId}&ColorId=${params.editProductPrice}&ProductName=${params.editProductName}&Description=${params.editDiscription}&Quantity=${params.editProductQuantity}&Code=${params.editProductCode}&Price=${params.editProductPrice}&HasDiscount=false&SubCategoryId=${params.setSubcategoryId}`)
+    dispatch(GetProduct())
+    return data
+  } catch (error) {
+    console.error(error);
+  }
+})

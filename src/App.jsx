@@ -7,6 +7,7 @@ import LogInAdmin from './pages/logInAdmin';
 import Products from './pages/products';
 import Categories from './pages/categories';
 import AddPage from './pages/addPage';
+import EditPage from './pages/editPage';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -38,6 +39,10 @@ const App = () => {
           path: 'addPage',
           element: <AddPage/>
         },
+        {
+          path: "/editPage/:id",
+          element: <EditPage/>
+        }
       ],
     },
   ]);

@@ -18,6 +18,10 @@ const Product = () => {
     navigate("/login");
   }
 
+  const HandleEdit = (id) => {
+    navigate(`/editPage/${id}`);
+  }
+
   useEffect(() => {
     dispatch(GetProduct());
     dispatch(searchByName())
@@ -78,12 +82,7 @@ const Product = () => {
             <table className="border-[1px] border-[solid] border-[lightgray] w-[80%] text-center m-auto">
               <thead className="h-[50px]">
                 <tr>
-                  <th>
-                    <input
-                      className="w-[15px] h-[15px] accent-blue-500"
-                      type="checkbox"
-                    />
-                  </th>
+
                   <th className="text-start">Product</th>
                   <th>Color</th>
                   <th>Quantity</th>
@@ -98,12 +97,7 @@ const Product = () => {
                       className="border-[1px] border-[solid] border-[lightgray]"
                       key={element.id}
                     >
-                      <td>
-                        <input
-                          className="w-[15px] h-[15px] accent-blue-500"
-                          type="checkbox"
-                        />
-                      </td>
+            
                       <td className="flex items-center gap-[10px]">
                         <img
                           className="w-[50px] h-[50px] object-cover object-center"
@@ -129,7 +123,7 @@ const Product = () => {
                         ${element?.price}.00
                       </td>
                       <td className="flex justify-center items-center gap-[10px]">
-                        <button className="hover:bg-blue-500 hover:text-white w-[40px] h-[40px] bg-transparent border-[1px] border-solid rounded border-blue-300 text-blue-500">
+                        <button onClick={() => HandleEdit(element.id)} className="hover:bg-blue-500 hover:text-white w-[40px] h-[40px] bg-transparent border-[1px] border-solid rounded border-blue-300 text-blue-500">
                           <DriveFileRenameOutlineIcon />
                         </button>
                         <button
