@@ -9,7 +9,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } 
 import styled from "styled-components";
 import FileBase64 from "react-file-base64";
 import { handleaddBrand, setEditBrand, setEditBrandDId } from "../reducers/adminSlice";
-import { PostBrand, deleteBrand, editBrandPr } from "../api/apibrand";
+import { GetBrands, PostBrand, deleteBrand, editBrandPr } from "../api/apibrand";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -36,10 +36,7 @@ const Categories = () => {
 
 
 
-  useEffect(() => {
-    dispatch(GetByCategory());
-    dispatch(GetBrands())
-  }, []);
+
 
   const [open, setOpen] = useState(false);
 
@@ -120,6 +117,11 @@ const Categories = () => {
   };
   
 
+  useEffect(() => {
+    dispatch(GetByCategory());
+    dispatch(GetBrands())
+  }, []);
+
 
   return (
     <div className="w-[100%] flex">
@@ -176,7 +178,7 @@ const Categories = () => {
                         <img
                           className="w-[80px]  rounded"
                           src={import.meta.env.VITE_APP_FILE_URL + element?.categoryImage}
-                        />import { GetBrands } from './../api/apibrand';
+                        />
 
                         <h1 className="text-[18px] text-center font-[600] group-hover:text-white">
                           {element?.categoryName.slice(0, 12)}

@@ -37,7 +37,7 @@ export const PostBrand = createAsyncThunk('TodoSlicer/PostBrand',async(brand, {d
 export const deleteBrand = createAsyncThunk('TodoSlicer/deleteBrand',async(id, {dispatch})=>{
     try {
         const {data} = await axiosRequest.delete(`/Brand/delete-brand?id=${id}`)
-        dispatch(GetBrand())
+        dispatch(GetBrands())
         console.log(data.data);
         
         return data.data
@@ -54,7 +54,7 @@ export const editBrandPr = createAsyncThunk('TodoSlicer/editBrandPr', async(Bran
     console.log(Brand);
     try {
         const {data} = await axiosRequest.put(`/Brand/update-brand?Id=${Brand.id}&BrandName=${Brand.brandName}`)
-        dispatch(GetBrand())
+        dispatch(GetBrands())
         return data.data
     } catch (error) {
         console.error(error);
