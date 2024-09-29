@@ -3,7 +3,7 @@ import Navigation from "../components/navigation";
 import ImageTypeFile from "../components/imageTypeFile";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { GetBrand, GetCategory, GetColor, addProduct } from "../api/api";
+import {  GetBrand, GetCategory, GetColor, addProduct } from "../api/api";
 import toast from "react-hot-toast";
 
 const AddPage = () => {
@@ -11,8 +11,10 @@ const AddPage = () => {
   const dispatch = useDispatch();
   const [imageBase64, setImageBase64] = useState("");
   const { color } = useSelector((state) => state.AdminSlice);
-  const { brand } = useSelector((state) => state.AdminSlice);
+  const { brandse } = useSelector((state) => state.AdminSlice);
   const { subcategory } = useSelector((state) => state.AdminSlice);
+
+  console.log(brandse);
 
   async function handleAddProduct(event) {
     event.preventDefault();
@@ -114,8 +116,8 @@ const AddPage = () => {
                 id=""
               >
                 <option value="">Brand</option>
-                {brand && brand.data ? (
-                  brand.data.map((element) => (
+                {brandse && brandse.data ? (
+                  brandse.data.map((element) => (
                     <option key={element.id} value={element.id}>
                         {element.brandName}
                     </option>

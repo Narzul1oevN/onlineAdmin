@@ -13,7 +13,8 @@ import {
   searchByName,
 } from "../api/api";
 import toast from "react-hot-toast";
-import { GetBrands, editBrandPr } from "../api/apibrand";
+import { editBrandPr } from "../api/apibrand";
+import { GetBrands } from './../api/apibrand';
 
 const initialState = {
   data: [],
@@ -22,6 +23,7 @@ const initialState = {
   token: null,
   color: [],
   brandse: [],
+  brandses: [],
   subcategory: [],
   editProductName: "",
   editDiscription: "",
@@ -35,7 +37,7 @@ const initialState = {
   addBrand:"",
   editBrand:"",
   editId: null,
-
+  
 };
 
 export const AdminSlice = createSlice({
@@ -131,6 +133,9 @@ export const AdminSlice = createSlice({
     });
     builder.addCase(GetBrand.fulfilled, (state, action) => {
       state.brandse = action.payload;
+    });
+    builder.addCase(GetBrands.fulfilled, (state, action) => {
+      state.brandses = action.payload;
     });
     builder.addCase(editBrandPr.fulfilled, (state, action) => {
       state.brandse = action.payload;

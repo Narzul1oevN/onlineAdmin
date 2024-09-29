@@ -107,7 +107,7 @@ export const GetColor = createAsyncThunk("counter/GetColor", async () => {
 export const GetBrand = createAsyncThunk("counter/GetBrand", async () => {
   try {
     const { data } = await axiosRequest.get("/Brand/get-brands")
-    return data.data
+    return data
   } catch (error) {
     console.error(error);
   }

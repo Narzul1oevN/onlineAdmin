@@ -23,7 +23,7 @@ const EditPage = () => {
   const { id } = useParams();
 
   const { color } = useSelector((state) => state.AdminSlice);
-  const { brand } = useSelector((state) => state.AdminSlice);
+  const { brandse } = useSelector((state) => state.AdminSlice);
   const { subcategory } = useSelector((state) => state.AdminSlice);
   const {
     editProductName,
@@ -108,8 +108,8 @@ const EditPage = () => {
                 onChange={(e) => dispatch(setBrandId(e.target.value))}
               >
                 <option value="">Brand</option>
-                {brand && brand.data ? (
-                  brand.data.map((element) => (
+                {brandse && brandse.data ? (
+                  brandse.data.map((element) => (
                     <option key={element.id} value={element.id}>
                       {element.brandName}
                     </option>

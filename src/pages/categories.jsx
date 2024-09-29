@@ -20,10 +20,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const Categories = () => {
   const token = localStorage.getItem("token");
   const { categore } = useSelector((state) => state.AdminSlice);
-  const { brandse } = useSelector((state) => state.AdminSlice);
+  const { brandses } = useSelector((state) => state.AdminSlice);
   const { addBrand } = useSelector((state) => state.AdminSlice);
   const [editId, setEditId] = useState(null);
-const [editBrand, setEditBrand] = useState("");
+  const [editBrand, setEditBrand] = useState("");
+  const [editCategoryId, seteditCategoryId] = useState(null);
+  const [editCategoryName, seteditCategoryName] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [openBrands, setOpenBrands] = useState(false);
@@ -36,7 +38,7 @@ const [editBrand, setEditBrand] = useState("");
 
   useEffect(() => {
     dispatch(GetByCategory());
-    dispatch(GetBrand())
+    dispatch(GetBrands())
   }, []);
 
   const [open, setOpen] = useState(false);
@@ -92,10 +94,24 @@ const [editBrand, setEditBrand] = useState("");
       id: editId,
       brandName: editBrand,
     };
-    dispatch(editBrandPr(updateBrand)); // Проверьте правильность этой функции
+    dispatch(editBrandPr(updateBrand)); 
     setOpenBrands(false);
   };
-  
+
+  const saveEditCategory = () => {
+    const categoryElem = {
+      id: editCategoryId,
+      brandName: editCategoryName,
+    };
+    dispatch(editCategory(categoryElem)); 
+    setOpenBrands(false);
+  };
+
+  const handleeditCategory = (categoryElem) => {
+    setOpenBrands(true);
+    setEditBrand(brandElem.brandName);
+    setEditId(brandElem.id); // Исправлено
+  };
 
   const handleEditBrand = (brandElem) => {
     setOpenBrands(true);
@@ -160,13 +176,15 @@ const [editBrand, setEditBrand] = useState("");
                         <img
                           className="w-[80px]  rounded"
                           src={import.meta.env.VITE_APP_FILE_URL + element?.categoryImage}
-                        />
+                        />import { GetBrands } from './../api/apibrand';
+
                         <h1 className="text-[18px] text-center font-[600] group-hover:text-white">
                           {element?.categoryName.slice(0, 12)}
                         </h1>
                         <div className="w-[100] flex items-center gap-[20px] justify-center">
                           <button>
                           <EditIcon
+                          onClick={() => handleeditCategory(elem)}
                             fontSize="medium"
                             sx={{
                               color: "#1E5EFF",
@@ -244,7 +262,7 @@ const [editBrand, setEditBrand] = useState("");
                       <span>Click to upload image</span>
                     </div>
                     <FileBase64
-                      multiple={false} // Adjust according to your need
+                      multiple={false}
                       onDone={handleShowImage}
                     />
                   </label>
@@ -274,7 +292,7 @@ const [editBrand, setEditBrand] = useState("");
               </tr>
             </thead>
             <tbody>
-              {Array.isArray(brandse) && brandse.map((elem) => {
+              {Array.isArray(brandses) && brandses.map((elem) => {
                 return (
                   <tr key={elem.id} className="border-b-2 h-[50px]">
                     <td>{elem.brandName}</td>

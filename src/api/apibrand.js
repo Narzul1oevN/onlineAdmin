@@ -5,7 +5,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 import { axiosRequest } from "../utils/axiosRequest"
 import { GetBrand } from "./api"
 
-export const GetBrands = createAsyncThunk('counterSlice/GetBrands',async()=>{
+export const GetBrands = createAsyncThunk('counter/GetBrands',async()=>{
     try {
         const {data} = await axiosRequest.get('/Brand/get-brands')
         return data.data
