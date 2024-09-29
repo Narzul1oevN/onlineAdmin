@@ -13,6 +13,7 @@ import {
   searchByName,
 } from "../api/api";
 import toast from "react-hot-toast";
+import { GetBrands } from "../api/apibrand";
 
 const initialState = {
   data: [],
@@ -30,13 +31,27 @@ const initialState = {
   brandId: "",
   colorId: "",
   subcategoryId: "",
-  hasdiscount: ""
+  hasdiscount: "",
+  addBrand:"",
+  editBrand:"",
+  editId: null,
+
 };
 
 export const AdminSlice = createSlice({
   name: "counter",
   initialState,
   reducers: {
+    setEditBrand: (state, action) => {
+      state.editBrand = action.payload;
+   },
+   setEditBrandDId: (state, action) => {
+      state.editId = action.payload;
+   },
+
+    handleaddBrand: (state, action) => {
+      state.addBrand = action.payload;
+    },
     logout: (state) => {
       state.token = null;
       localStorage.removeItem("token");
@@ -108,18 +123,20 @@ export const AdminSlice = createSlice({
     builder.addCase(GetColor.fulfilled, (state, action) => {
       state.color = action.payload;
     });
-    builder.addCase(GetBrand.fulfilled, (state, action) => {
-      state.brand = action.payload;
-    });
     builder.addCase(GetCategory.fulfilled, (state, action) => {
       state.subcategory = action.payload;
     });
     builder.addCase(searchByName.fulfilled, (state, action) => {
       state.data = action.payload;
     });
+    builder.addCase(GetBrands.fulfilled, (state, action) => {
+      state.brand = action.payload;
+    });
+
+
   },
 });
 
-export const { logout, setEditName, setEditDiscription, setEditQuantity, setEditCode, setEditPrice, setBrandId, setColorId, setSubcategoryId, setHasDiscount } = AdminSlice.actions;
+export const { logout, setEditName, setEditDiscription, setEditQuantity, setEditCode, setEditPrice, setBrandId, setColorId, setSubcategoryId, setHasDiscount, handleaddBrand, setEditBrand, setEditBrandDId } = AdminSlice.actions;
 
 export default AdminSlice.reducer;

@@ -6,6 +6,7 @@ import { GetBrand, GetById, GetCategory, GetColor, editProduct } from "../api/ap
 import {
   setBrandId,
   setColorId,
+  setEditCode,
   setEditDiscription,
   setEditName,
   setEditPrice,
@@ -14,6 +15,7 @@ import {
   setSubcategoryId,
 } from "../reducers/adminSlice";
 import { data } from "autoprefixer";
+import toast from "react-hot-toast";
 
 const EditPage = () => {
   const navigate = useNavigate();
@@ -35,23 +37,31 @@ const EditPage = () => {
     hasdiscount,
   } = useSelector((state) => state.AdminSlice);
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    dispatch(
-        editProduct({
-        id,
-        brandId,
-        editProductPrice,
-        editProductName,
-        editProductCode,
-        hasdiscount,
-        editProductQuantity,
-        setColorId,
-        setSubcategoryId,
-        editDiscription
-      })
-    );
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+        await dispatch(
+            editProduct({
+                id,
+                brandId,
+                editProductPrice,
+                editProductName,
+                editProductCode,
+                hasdiscount,
+                editProductQuantity,
+                colorId,
+                subcategoryId,
+                editDiscription
+            })
+        );
+        toast.success("Successfully edited");
+        navigate("/product");
+    } catch (error) {
+        toast.error("Failed to edit product");
+        console.error(error); // Опционально: логирование ошибки
+    }
+};
+
 
   useEffect(() => {
     dispatch(GetColor());

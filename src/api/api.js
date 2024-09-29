@@ -157,7 +157,7 @@ export const GetById = createAsyncThunk("counter/GetById", async (id) => {
 export const editProduct = createAsyncThunk('counter/postCategroy', async (params, {dispatch}) => {
   try {
     console.log(params)
-    const { data } = await axiosRequest.put(`/Product/update-product?Id=${params.id}&BrandId=${params.brandId}&ColorId=${params.editProductPrice}&ProductName=${params.editProductName}&Description=${params.editDiscription}&Quantity=${params.editProductQuantity}&Code=${params.editProductCode}&Price=${params.editProductPrice}&HasDiscount=false&SubCategoryId=${params.setSubcategoryId}`)
+    const { data } = await axiosRequest.put(`/Product/update-product?Id=${params.id}&BrandId=${params.brandId}&ColorId=${params.colorId}&ProductName=${params.editProductName}&Description=${params.editDiscription}&Quantity=${params.editProductQuantity}&Code=${params.editProductCode}&Price=${params.editProductPrice}&HasDiscount=false&SubCategoryId=${params.subcategoryId}`)
     dispatch(GetProduct())
     return data
   } catch (error) {
